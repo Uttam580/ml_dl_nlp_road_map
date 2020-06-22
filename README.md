@@ -4,7 +4,10 @@ Various machine learning Algorithms with example.
 
 Source: 
 
-analyticsvidhya
+analyticsvidhya,
+
 medium,
+
 towardatscience
+
 kdnuggets
