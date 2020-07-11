@@ -1,0 +1,326 @@
+1  Spliting int into python :
+      12345, I want to split and put it into an array as 1, 2, 3, 4, 5.
+      
+      [int(i) for i in str(12345)]
+       list(str(12345))
+       map(int,str(12345))
+	   
+========================================================================
+       
+2. Creating list like [['Harry', 37.21], ['Berry', 37.21]]
+
+      score_list = []
+      mark_sheet= []
+      for _ in range(int(input())):
+            name = input()
+            score = float(input())
+            mark_sheet.append([name,score])
+            score_list.append(score)
+===========================================================         
+           
+3.  ar = list(map(int, input().rstrip().split()))
+
+================================================================
+
+4.  n = int(input())
+   name_numbers = [input().split() for i in range(n)] #taking input from user as(name mumber)
+   phone_book = {k: v for k,v in name_numbers}  #coverting data into dictionary 
+   
+===================================================== 
+   
+5 . to return combiantions from the array
+   
+   from itertools import combinations
+   list(combinations(ar, 2))
+ 
+================================================ 
+df = dataframe name 
+
+6. for visaulization
+
+def chk_null(df):
+    total = df.isnull().sum().sort_values(ascending = False)
+    percent = (df.isnull().sum()/df.isnull().count()*100).sort_values(ascending = False)
+    missing_data  = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])
+    print(missing_data.head(10))
+	
+==============================================================================
+    
+7. Checking corelation : 
+
+ def chk_corr(df):
+    corrs = train.corr()
+    plt.figure(figsize = (7,7))
+    # Heatmap of correlations
+    sns.heatmap(corrs, cmap = plt.cm.RdYlBu_r, vmin = -0.25, annot = True, vmax = 0.6)
+    plt.title('Correlation Heatmap');
+ =============================================================== 
+8. checking null values using msno:
+ 
+  import missingno as msno # check missing value
+  msno.matrix(df)
+  
+================================================  
+9. to plot word cloud 
+
+from wordcloud import WordCloud # wordcloud
+fig, ax = plt.subplots(1, 2, figsize=(16,32))# plotting two subplots 
+wordcloud = WordCloud(background_color='white',width=800, height=800).generate(' '.join(df['Name']))
+wordcloud_sub = WordCloud(background_color='white',width=800, height=800).generate(' '.join(df['Subtitle'].dropna().astype(str)) ) # used astype(str)bbecause data is not present as str
+ax[0].imshow(wordcloud)
+ax[0].axis('off')
+ax[0].set_title('Wordcloud(Name)')
+ax[1].imshow(wordcloud_sub)
+ax[1].axis('off')
+ax[1].set_title('Wordcloud(Subtitle)')
+plt.show()
+
+===================================================
+10. To show images from URL.
+
+import matplotlib.pyplot as plt  
+import requests
+from PIL import Image
+from io import BytesIO
+
+fig, ax = plt.subplots(10,10, figsize=(12,12))
+for i in range(100):                         # iterating 10 rows only from dataset 
+    r = requests.get(data['Icon URL'][i])    # data is dataframe with "Icon URL" column 
+    im = Image.open(BytesIO(r.content))     # opening the images 
+    ax[i//10][i%10].imshow(im)
+    ax[i//10][i%10].axis('off') # indexes of the images will not show 
+plt.show()
+
+========================================================
+11. Groupby object 
+
+#youtue is dataframe ,first grouping by category column
+# size will give size of different category ,then sorting values in ascending  order 
+#index will give index of groupby df.
+
+by_cat = youtube.groupby(["category"]).size().sort_values(ascending = False)
+sns.barplot(by_cat.values, by_cat.index.values, palette = "rocket")
+plt.title("Most Frequent Trending Youtube Categories")
+plt.xlabel("Video Count")
+
+============================================================================
+12. 
+# Number of unique classes in each 'object' column
+# Number of each type of column
+app_train.dtypes.value_counts()
+app_train.select_dtypes('object').apply(pd.Series.nunique, axis = 0)
+====================================================================
+13 . to plot bar for feature. 
+      a. df.groupby('col').size().plot.bar()
+      b. df.col.value_counts(normalize=True).sort_index().plot.bar()
+     
+ ======================================================================  
+ 
+14. Plotting data over map 
+  
+rating = pd.DataFrame(df.groupby(['Nationality'])['Overall'].sum().reset_index())
+count = pd.DataFrame(rating.groupby('Nationality')['Overall'].sum().reset_index())
+
+trace = [go.Choropleth(
+            colorscale = 'YlOrRd',
+            locationmode = 'country names',
+            locations = count['Nationality'],
+            text = count['Nationality'],
+            z = count['Overall'],
+)]
+
+layout = go.Layout(title = 'Country vs Ratings')
+
+fig = go.Figure(data = trace, layout = layout)
+py.iplot(fig)
+
+=======================================================================
+
+15 . checking word count and charcater count into the sentence. 
+
+train['text'].str.split().map(lambda x: len(x)).....................word count
+          or
+df_test['text'].apply(lambda x: len(str(x).split()))
+ 
+train['text].str.len()_____________________________________character count
+
+========================================================================  
+
+16
+
+selecting datatype 
+df_train.select_dtypes(exclude=['object']).columns
+========================================================
+17. grouping 
+
+checking unique values in state_id columns
+
+df_train.groupby('state_id')['id'].nunique()
+
+df.groupby(c1).count()# grouping y column c1 and get count
+
+df.groupby([c1, c2])
+
+============================================================
+#Trick18.1
+plotting subplot
+fig = plt.figure(figsize=(13,13)
+plt.subplot(2, 2, 1)
+plt.plot(x, y)
+
+plt.subplot(2, 2, 2)
+plt.plot(x, y)
+
+plt.subplot(2, 2, 3)
+plt.plot(x, y)
+
+plt.subplot(2, 2, 4)
+plt.plot(x, y)
+
+plt.show()
+      >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#Trick18.2
+import matplotlib.pyplot as plt
+fig, ax = plt.subplots(2, 2)
+ax[0, 0].plot(range(10), 'r') #row=0, col=0
+ax[1, 0].plot(range(10), 'b') #row=1, col=0
+ax[0, 1].plot(range(10), 'g') #row=0, col=1
+ax[1, 1].plot(range(10), 'k') #row=1, col=1
+plt.show()
+
+
+============================================================
+
+#Trick19
+
+import pandas_profiling as pp
+pp.ProfileReport(df_iris)
+
+========================================================
+#Trick20
+Renaming
+df.rename({'old':'new'},axis=1, inplace=True)
+
+===============================================
+#T20
+
+unique values
+df.value_counts(ascending = True)
+df.columns_name.nunique() # to get number of unique vales
+df.columns_name.unique() # list of unique values, ndarray data type
+
+==================================================================
+#T21
+
+you’re choosing one column, you can get away with passing in just the name of the column  : df[“columnname”]
+if you’re choosing multiple columns, you have to pass in a container that contains multiple values. : columns = [“c1”, “c2”] df[columns]
+
+==============================================================
+#T22 : to extract datet itme from string 
+
+df['timestamp'] = pd.to_datetime(df['timestamp'])
+    df['date'] = df['timestamp'].dt.date
+ 
+ ===============================================
+#T23 Intersection 
+lst1=[]
+lst2= []
+
+list(set(lst1) & set(lst2)) 
+set(lst1).intersection(lst2)
+
+===============================================
+# T24 Python function 
+
+zip() is to map the similar index of multiple containers 
+mapped = zip(lst1,lst2,lst3) 
+to get set use set(mapped)
+to get list use list(mapped)
+
+Unzipping means converting the zipped values back to the individual self as they were. 
+This is done with the help of “*” operator
+
+lst10,lst20, lst30= zip(*mapped)
+
+=================================================
+# T25 Dictionary 
+
+list = ['name','id','fn','ln','address','pin']
+count = {i : 0 for  i  in list}
+count # assigning value 0 in each element in list and create dictionary
+
+t = (1,2,3,4,5,'uttam')
+dict1 = {i: t.index(i) for i in t}
+dict1 # it give element with index
+
+
+[x for x in range(10)]  # return list in range(10)
+[(lambda x :x*2) (i) for i in range(10)]  or {i :i**2 for i in range(10)}
+
+#performing action on multiple list indexwise 
+uni = [] 
+count = []
+res = [i + j for i, j in zip(uni,count)] 
+
+===============================================
+#T26 
+df[['col1','col2']] # will give pandas dataframe
+df[['col1','col2']].values # give nd arrray 
+
+=====================================
+
+#T27 2D array
+a = [[10, 12, 13, 14], [15, 16], [17, 18, 19]]
+for i in range(len(a)): # retrieve row
+  for j in range(len(a[i])):# retieve column 
+    print(a[i][j])
+
+======================================================   
+#T28 working to text data
+df['text'].str.len()  # df dataframe contains text column  as text data 
+
+=====================================================
+
+#T29 map on dataframe column 
+
+d = {'col1': [1,2],'col2': [3,4]}
+df = pd.DataFrame(data= d)
+df['col2'].map(lambda x: x*3)
+
+==============================================
+#T30 sorting 
+
+#The value of the key parameter should be a function that takes a single argument and returns a key to use for sorting purposes
+sorted("This is a test string from Andrew".split(), key=str.lower)
+
+
+================================================
+#T31
+import string 
+special = string.punctuation #give special character 
+
+# spell checker
+
+!pip install pyspellchecker
+from spellchecker import SpellChecker
+spell = SpellChecker()
+def correct_spellings(text):
+    corrected_text = []
+    misspelled_words = spell.unknown(text.split())
+    for word in text.split():
+        if word in misspelled_words:
+            corrected_text.append(spell.correction(word))
+        else:
+            corrected_text.append(word)
+    return " ".join(corrected_text)
+        
+text = "corect me plese"
+correct_spellings(text)
+
+
+
+
+
+
+
+
