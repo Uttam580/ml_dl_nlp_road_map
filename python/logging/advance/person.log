@@ -1,0 +1,10 @@
+
+# when we run directly person
+INFO:__main__:Created Person:JohnSmithJohn.Smith@gmail.com
+INFO:__main__:Created Person:willsmithwill.smith@gmail.com
+INFO:__main__:Created Person:JaneDoeJane.Doe@gmail.com
+
+# when we import person class into div ,and run div
+INFO:person:Created Person:JohnSmithJohn.Smith@gmail.com
+INFO:person:Created Person:willsmithwill.smith@gmail.com
+INFO:person:Created Person:JaneDoeJane.Doe@gmail.com

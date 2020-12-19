@@ -1,0 +1,5 @@
+2020-08-26 18:40:52,756:__main__:Tried to divide by zero
+Traceback (most recent call last):
+  File "c:/Users/Uttam/Desktop/Ds/Python_learning/logger/Advance/div.py", line 28, in div
+    a/b
+ZeroDivisionError: division by zero
