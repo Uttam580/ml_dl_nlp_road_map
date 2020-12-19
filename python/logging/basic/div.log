@@ -1,0 +1,10 @@
+2020-08-26 16:23:36,141:DEBUG:division of 2/3 : 0.6666666666666666
+2020-08-26 16:27:42,919:ERROR:division by zero
+2020-08-26 16:27:42,919:DEBUG:division of 2/0 : None
+2020-08-26 16:28:12,196:ERROR:division by zero
+2020-08-26 16:28:12,196:ERROR:division by zero
+Traceback (most recent call last):
+  File "c:/Users/Uttam/Desktop/Ds/Python_learning/logger/Basic/divison.py", line 12, in div
+    a/b
+ZeroDivisionError: division by zero
+2020-08-26 16:28:12,196:DEBUG:division of 2/0 : None
